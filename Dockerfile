@@ -1,10 +1,15 @@
-FROM node
+FROM node:18-alpine
+
+ENV NODE_ENV=production
+ARG NPM_BUILD="npm install --omit=dev"
+EXPOSE 8080/tcp
+
 WORKDIR /app
 
-COPY package*.json .
+COPY ["package.json", "./"]
+RUN $NPM_BUILD
 
-RUN npm install
+COPY . .
 
-COPY . . 
-EXPOSE 8080
-CMD ["npm", "start"]
+ENTRYPOINT [ "node" ]
+CMD ["./index.js"]
