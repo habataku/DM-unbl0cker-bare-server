@@ -1,6 +1,4 @@
-FROM node:18-alpine
-ENV NODE_ENV=production
-
+FROM node
 WORKDIR /app
 
 COPY package*.json .
@@ -8,7 +6,5 @@ COPY package*.json .
 RUN npm install
 
 COPY . . 
-
-EXPOSE 8080
 
 CMD ["npm", "start"]
